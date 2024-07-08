@@ -14,7 +14,7 @@ jobs:
       packages: write
     steps:
       - name: 'Checkout GitHub Actions'
-        uses: actions/checkout
+        uses: actions/checkout@v3
 
       - name: 'Login to GitHub Container Registry'
         uses: docker/login-action@v2
