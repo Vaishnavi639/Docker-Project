@@ -1,8 +1,11 @@
-name: Deploy image oh GHCR
-on: 
-  push: 
+
+name: Deploy Python App to GHCR
+
+on:
+  push:
     branches:
       - main
+
 jobs:
   push-to-ghcr:
     runs-on: ubuntu-latest
@@ -12,13 +15,18 @@ jobs:
     steps:
       - name: 'Checkout GitHub Actions'
         uses: actions/checkout@v2
-      - name: 'Login in GitHub Container Registry'
+
+      - name: 'Login to GitHub Container Registry'
         uses: docker/login-action@v2
         with:
-         registry: ghcr.io
-         username: ${{ github.actor }}
-         password: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Build and Push the image'
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Build Python Image'
         run: |
-         docker build . -- tag ghcr.io/${{ github.repository_owner }}/hello.latest
-         docker push ghcr.io/${{ github.repository_owner }}/hello.test
+          docker build . -t ghcr.io/${{ github.repository_owner }}/python-app:latest
+
+      - name: 'Push Python Image to GHCR'
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/python-app:latest
