@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    steps:
+  steps:
       -name: 'Checkout GitHub Actions'
        uses: actions/checkout@v2
       -name: 'Login in GitHub Container Registry'
